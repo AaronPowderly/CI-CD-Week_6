@@ -1,4 +1,40 @@
 package ie.atu.week_5cicd.Controller;
 
+
+import ie.atu.week_5cicd.Model.Passenger;
+import ie.atu.week_5cicd.Service.PassengerService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/passengers")
 public class PassengerController {
+
+    private final PassengerService service;
+
+    public PassengerController(PassengerService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Passenger> getPassenger(@PathVariable String id) {
+        Optional<Passenger> maybe = service.findById(id);
+        if (maybe.isPresent()) {
+            return ResponseEntity.ok(maybe.get());
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Passenger> create(@Valid @RequestBody Passenger p) {
+        Passenger created = service.create(p);
+        return ResponseEntity
+                .created(URI.create("/api/passengers" + created.getPassengerID()))
+                .body(created);
+    }
 }

@@ -46,4 +46,28 @@ public class PassengerServiceTest {
                         .build()));
 
     }
+    @Test
+    void updatePassenger(){
+        Passenger p = Passenger.builder()
+                .passengerID("A3")
+                .name("Daragh")
+                .email("Daragh@atu.ie")
+                .build();
+
+        service.create(p);
+        Passenger updated = Passenger.builder()
+                .passengerID("A3")
+                .name("Daragh")
+                .email("Daragh@atu.ie")
+                .build();
+
+        service.update(updated);
+
+        Optional<Passenger> found = service.findById("A3");
+        assertTrue(found.isPresent());
+        assertEquals("Daragh Updated", found.get().getName());
+        assertEquals("Daragh.Updated@atu.ie", found.get().getEmail());
+
+
+    }
 }

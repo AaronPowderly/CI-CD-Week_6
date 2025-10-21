@@ -33,6 +33,14 @@ public class PassengerService {
         return p;
     }
 
+    public Passenger update(Passenger p) {
+        if (findById(p.getPassengerID()).isPresent()) {
+            throw new IllegalArgumentException("Passenger not found");
+        }
+        store.add(p);
+        return p;
+    }
+
 
 
 }

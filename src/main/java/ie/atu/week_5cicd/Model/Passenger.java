@@ -19,8 +19,10 @@ public class Passenger {
     @NotBlank @Size(max = 60)
     private String name;
 
-    @NotBlank @Email
+    @NotBlank
+    @Email
     private String email;
+
 
 
 }

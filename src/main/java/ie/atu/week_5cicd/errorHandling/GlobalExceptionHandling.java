@@ -20,7 +20,15 @@ public class GlobalExceptionHandling {
         {
             ExceptionDetails exceptionDetails = new ExceptionDetails();
             exceptionDetails.setFieldName(fieldError.getField());
+            exceptionDetails.setFieldValue(fieldError.getDefaultMessage());
+            errorList.add(exceptionDetails);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorList);
+    }
+
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<DuplicateException>showDupError(DuplicateException de)
+    {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(de);
     }
 }

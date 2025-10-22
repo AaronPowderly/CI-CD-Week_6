@@ -13,10 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor @Builder
 public class Passenger {
 
-    @NotBlank @Size(max = 40)
+    @NotBlank(message = "passengerID is required")
+    @Size(message = "size of passengerID to long", max = 40)
     private String passengerID;
 
-    @NotBlank @Size(max = 60)
+    @NotBlank(message = "name is required")
+    @Size(message = "size name to long",max = 60)
     private String name;
 
     @NotBlank(message = "email is required")
